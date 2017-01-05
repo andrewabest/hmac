@@ -5,7 +5,7 @@ namespace Hmac.WebAPI
         public string Scope { get; private set; }
         public string ApiKey { get; private set; }
 
-        public HmacConfiguration Create()
+        public static HmacConfiguration Create()
         {
             return new HmacConfiguration();
         }

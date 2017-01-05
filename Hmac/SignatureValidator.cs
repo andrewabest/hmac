@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Runtime.Caching;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hmac
@@ -21,23 +15,17 @@ namespace Hmac
         {
             if (request.Headers.Contains("Authorization") == false) return false;
 
-            var valid = false;
-
-            // TODO: This is a bit ick
             var headerValues = GetAuthorizationHeaderValues(request.Headers.GetValues("Authorization").First());
 
-            if (headerValues != null)
-            {
-                var incomingScope = headerValues[0];
-                var nonce = headerValues[1];
-                var timeStamp = headerValues[2];
-                var signedHeaders = headerValues[3];
-                var incomingSignature = headerValues[4];
+            if (headerValues == null) return false;
 
-                valid = await IsValidRequest(request, incomingScope, new Nonce(nonce), timeStamp, signedHeaders, incomingSignature, scope, apiKey);
-            }
+            var incomingScope = headerValues[0];
+            var nonce = headerValues[1];
+            var timeStamp = headerValues[2];
+            var signedHeaders = headerValues[3];
+            var incomingSignature = headerValues[4];
 
-            return valid;
+            return await IsValidRequest(request, incomingScope, new Nonce(nonce), timeStamp, signedHeaders, incomingSignature, scope, apiKey);
         }
 
         private static string[] GetAuthorizationHeaderValues(string rawHeader)

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hmac.Tests", "Hmac.Tests\Hm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hmac.WebAPI", "Hmac.WebAPI\Hmac.WebAPI.csproj", "{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hmac.Tests.API", "Hmac.Tests.API\Hmac.Tests.API.csproj", "{30ABADA7-AEC8-46D2-9E34-BAD34B77F5B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30ABADA7-AEC8-46D2-9E34-BAD34B77F5B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30ABADA7-AEC8-46D2-9E34-BAD34B77F5B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30ABADA7-AEC8-46D2-9E34-BAD34B77F5B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30ABADA7-AEC8-46D2-9E34-BAD34B77F5B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

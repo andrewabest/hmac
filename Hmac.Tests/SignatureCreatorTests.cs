@@ -18,7 +18,33 @@ namespace Hmac.Tests
         private readonly string _requestPayload = "payload";
 
         [Test]
-        public async Task CreatedSignatureCanBeValidated()
+        public async Task CreatedSignature_FromRequestWithNoHeaders_CanBeValidated()
+        {
+            var sut = new SignatureCreator();
+
+            IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers = new List<KeyValuePair<string, IEnumerable<string>>>();
+
+            var signature = sut.Create(headers, _applicationUri, DateTime.UtcNow.ToTimeStamp(), new Nonce(), _requestPayload, _scope, _apiKey);
+
+            var validator = new SignatureValidator();
+
+            var request = new HttpRequestMessage(HttpMethod.Post, _applicationUri)
+            {
+                Content = new StringContent(_requestPayload)
+            };
+
+            foreach (var header in headers)
+            {
+                request.Headers.Add(header.Key, header.Value);
+            }
+
+            request.Headers.Add("Authorization", signature);
+
+            (await validator.Validate(request, _scope, _apiKey)).ShouldBe(true);
+        }
+
+        [Test]
+        public async Task CreatedSignature_FromRequestWithHeaders_CanBeValidated()
         {
             var sut = new SignatureCreator();
 

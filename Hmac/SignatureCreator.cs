@@ -27,28 +27,39 @@ namespace Hmac
 
             var canonicalUri = Uri.EscapeUriString(uri.AbsolutePath);
             var canonicalQueryString = Uri.EscapeUriString(uri.Query);
-            var canonicalHeaders =
-                headers
-                    .OrderBy(x => x.Key)
-                    .Select(
-                        x =>
-                            x.Key.ToLowerInvariant() + ':' +
-                            x.Value.Aggregate((acc, str) => acc + "," + str))
-                    .Aggregate((acc, str) => acc + Environment.NewLine + str);
-
-            var signedHeaders =
-                headers
-                    .OrderBy(x => x.Key)
-                    .Select(x => x.Key)
-                    .Aggregate((acc, str) => acc + ";" + str);
 
             var canonicalRequest =
                 "POST" + Environment.NewLine +
                 canonicalUri + Environment.NewLine +
-                canonicalQueryString + Environment.NewLine +
-                canonicalHeaders + Environment.NewLine +
-                signedHeaders + Environment.NewLine + 
-                requestContentHashBase64String;
+                requestContentHashBase64String + Environment.NewLine;
+
+            if (!string.IsNullOrWhiteSpace(canonicalQueryString))
+            {
+                canonicalRequest += canonicalQueryString + Environment.NewLine;
+            }
+
+            var signedHeaders = string.Empty;
+            if (headers.Any())
+            {
+                var canonicalHeaders =
+                    headers
+                        .OrderBy(x => x.Key)
+                        .Select(
+                            x =>
+                                x.Key.ToLowerInvariant() + ':' +
+                                x.Value.Aggregate((acc, str) => acc + "," + str))
+                        .Aggregate((acc, str) => acc + Environment.NewLine + str);
+
+                signedHeaders =
+                    headers
+                        .OrderBy(x => x.Key)
+                        .Select(x => x.Key)
+                        .Aggregate((acc, str) => acc + ";" + str);
+
+                canonicalRequest += 
+                    canonicalHeaders + Environment.NewLine + 
+                    signedHeaders + Environment.NewLine;
+            }
 
             var canonicalRequestContent = Encoding.UTF8.GetBytes(canonicalRequest);
             var canonicalRequestContentHash = sha256.ComputeHash(canonicalRequestContent);

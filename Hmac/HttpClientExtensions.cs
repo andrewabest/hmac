@@ -8,7 +8,7 @@ namespace Hmac
 {
     public static class HttpClientExtensions
     {
-        public static Task<HttpResponseMessage> PostAsJsonWithHmacAsync<T>(this HttpClient client, Uri requestUri, T value)
+        public static Task<HttpResponseMessage> PostAsJsonWithHmacAsync<T>(this HttpClient client, Uri requestUri, T value, string scope, string apiKey)
         {
             var payload = JsonConvert.SerializeObject(value);
 
@@ -18,8 +18,8 @@ namespace Hmac
                 DateTime.UtcNow.ToTimeStamp(), 
                 new Nonce(), 
                 payload, 
-                "Scope", 
-                "ApiKey");
+                scope, 
+                apiKey);
 
             client.DefaultRequestHeaders.Add("Authorization", header);
 
