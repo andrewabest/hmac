@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hmac", "Hmac\Hmac.csproj", "{45915FAE-4BB0-4032-9E3F-883A311C10A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hmac.Tests", "Hmac.Tests\Hmac.Tests.csproj", "{38174503-AEE5-4E62-B920-C72F95354C2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hmac.WebAPI", "Hmac.WebAPI\Hmac.WebAPI.csproj", "{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45915FAE-4BB0-4032-9E3F-883A311C10A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45915FAE-4BB0-4032-9E3F-883A311C10A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45915FAE-4BB0-4032-9E3F-883A311C10A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45915FAE-4BB0-4032-9E3F-883A311C10A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38174503-AEE5-4E62-B920-C72F95354C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38174503-AEE5-4E62-B920-C72F95354C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38174503-AEE5-4E62-B920-C72F95354C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38174503-AEE5-4E62-B920-C72F95354C2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A2B82EE-0031-4C2D-A55C-41D9D9285E66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
