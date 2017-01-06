@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Best.$id$</id>
+    <id>$id$</id>
     <version>$version$</version>
-    <title>Best.$title$</title>
+    <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
     <projectUrl>https://github.com/andrewabest/hmac</projectUrl>
