@@ -5,7 +5,7 @@ A signature creator and validator, along with some useful extensions. Inspired b
 
 ## To install from NuGet
 
-    Install-Package Best.Hmac
+    Install-Package Hmac
 
 ## License
 
