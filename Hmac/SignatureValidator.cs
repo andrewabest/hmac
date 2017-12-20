@@ -9,13 +9,13 @@ namespace Hmac
     public class SignatureValidator
     {
         private const int RequestMaxAgeInSeconds = 300;
-        
-        
+        public const string AuthorizationHeaderKey = "Authorization";
+
         public async Task<bool> Validate(HttpRequestMessage request, string scope, string apiKey)
         {
-            if (request.Headers.Contains("Authorization") == false) return false;
+            if (request.Headers.Contains(AuthorizationHeaderKey) == false) return false;
 
-            var headerValues = GetAuthorizationHeaderValues(request.Headers.GetValues("Authorization").First());
+            var headerValues = GetAuthorizationHeaderValues(request.Headers.GetValues(AuthorizationHeaderKey).First());
 
             if (headerValues == null) return false;
 
@@ -55,6 +55,7 @@ namespace Hmac
             var creator = new SignatureCreator();
 
             var comparisonSignature = creator.Create(
+                request.Method,
                 request.Headers.Where(x => signedHeaders.Split(';').Contains(x.Key)), 
                 request.RequestUri, 
                 timeStamp,

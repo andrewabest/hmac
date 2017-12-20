@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
@@ -10,26 +11,39 @@ namespace Hmac
 {
     public class SignatureCreator
     {
+        public string CreateWithoutContent(
+            HttpMethod method,
+            IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers,
+            Uri uri,
+            string requestTimeStamp,
+            Nonce nonce,
+            string scope,
+            string apiKey)
+        {
+            return Create(method, headers, uri, requestTimeStamp, nonce, string.Empty, scope, apiKey);
+        }
+
         public string Create(
+            HttpMethod method,
             IEnumerable<KeyValuePair<string, IEnumerable<string>>> headers, 
             Uri uri, 
             string requestTimeStamp,
             Nonce nonce,
-            string payload, 
+            string content, 
             string scope, 
             string apiKey)
         {
-            var serializedValue = JsonConvert.SerializeObject(payload);
-            var content = Encoding.UTF8.GetBytes(serializedValue);
+            var serializedValue = JsonConvert.SerializeObject(content);
+            var encodedValue = Encoding.UTF8.GetBytes(serializedValue);
             var sha256 = SHA256.Create();
-            var requestContentHash = sha256.ComputeHash(content);
+            var requestContentHash = sha256.ComputeHash(encodedValue);
             var requestContentHashBase64String = Convert.ToBase64String(requestContentHash);
 
             var canonicalUri = Uri.EscapeUriString(uri.AbsolutePath);
             var canonicalQueryString = Uri.EscapeUriString(uri.Query);
 
             var canonicalRequest =
-                "POST" + Environment.NewLine +
+                method + Environment.NewLine +
                 canonicalUri + Environment.NewLine +
                 requestContentHashBase64String + Environment.NewLine;
 

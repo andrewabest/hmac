@@ -6,10 +6,18 @@ namespace Hmac.Tests.API.Controllers
     [RoutePrefix("api")]
     public class TestController : ApiController
     {
-        [Route("test")]
+        [Route("post")]
         [AuthorizeHmac]
         [HttpPost]
-        public IHttpActionResult Index([FromBody]string payload)
+        public IHttpActionResult Post([FromBody]string payload)
+        {
+            return Ok();
+        }
+
+        [Route("get")]
+        [AuthorizeHmac]
+        [HttpGet]
+        public IHttpActionResult Get([FromBody]string payload)
         {
             return Ok();
         }

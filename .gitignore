@@ -163,3 +163,4 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+/.vs/Hmac/v15/Server/*

@@ -8,22 +8,39 @@ namespace Hmac
 {
     public static class HttpClientExtensions
     {
-        public static Task<HttpResponseMessage> PostAsJsonWithHmacAsync<T>(this HttpClient client, Uri requestUri, T value, string scope, string apiKey)
+        public static Task<HttpResponseMessage> GetWithHmacAsync(this HttpClient client, Uri requestUri, string scope, string apiKey)
         {
-            var payload = JsonConvert.SerializeObject(value);
+            var header = new SignatureCreator().CreateWithoutContent(
+                HttpMethod.Get,
+                client.DefaultRequestHeaders,
+                requestUri,
+                DateTime.UtcNow.ToTimeStamp(),
+                new Nonce(),
+                scope,
+                apiKey);
+
+            client.DefaultRequestHeaders.Add(SignatureValidator.AuthorizationHeaderKey, header);
+
+            return client.GetAsync(requestUri);
+        }
+
+        public static Task<HttpResponseMessage> PostAsJsonWithHmacAsync<T>(this HttpClient client, Uri requestUri, T content, string scope, string apiKey)
+        {
+            var serializedContent = JsonConvert.SerializeObject(content);
 
             var header = new SignatureCreator().Create(
+                HttpMethod.Post,
                 client.DefaultRequestHeaders, 
                 requestUri, 
                 DateTime.UtcNow.ToTimeStamp(), 
                 new Nonce(), 
-                payload, 
+                serializedContent, 
                 scope, 
                 apiKey);
 
-            client.DefaultRequestHeaders.Add("Authorization", header);
+            client.DefaultRequestHeaders.Add(SignatureValidator.AuthorizationHeaderKey, header);
 
-            return client.PostAsync(requestUri, new StringContent(payload, Encoding.UTF8, "application/json"));
+            return client.PostAsync(requestUri, new StringContent(serializedContent, Encoding.UTF8, "application/json"));
         }
     }
 }

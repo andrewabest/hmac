@@ -10,11 +10,24 @@ namespace Hmac.Tests
     public class WebApiTests
     {
         [Test]
-        public async Task Test()
+        public async Task Get_AuthenticatesSuccessfully()
         {
             using (var server = TestServer.Create<Startup>())
             {
-                var testing = await server.HttpClient.PostAsJsonWithHmacAsync(new Uri($"{server.HttpClient.BaseAddress}/api/test"), new TestPayload(), "MyApp", "123456");
+                var testing = await server.HttpClient.GetWithHmacAsync(new Uri($"{server.HttpClient.BaseAddress}/api/get"), "MyApp", "123456");
+
+                Action testInspection = () => testing.EnsureSuccessStatusCode();
+
+                testInspection.ShouldNotThrow();
+            }
+        }
+
+        [Test]
+        public async Task Post_AuthenticatesSuccessfully()
+        {
+            using (var server = TestServer.Create<Startup>())
+            {
+                var testing = await server.HttpClient.PostAsJsonWithHmacAsync(new Uri($"{server.HttpClient.BaseAddress}/api/post"), new TestPayload(), "MyApp", "123456");
 
                 Action testInspection = () => testing.EnsureSuccessStatusCode();
 
