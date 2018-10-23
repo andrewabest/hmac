@@ -9,10 +9,13 @@
     <projectUrl>https://github.com/andrewabest/hmac</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <tags>Hmac Authentication</tags>
+    <tags>Hmac Authentication WebAPI</tags>
     <copyright>Copyright © 2018, Andrew Best</copyright>
+    <dependencies>
+      <dependency id="Hmac" version="$version$" />
+    </dependencies>
   </metadata>
   <files>
-    <file src="bin\release\Hmac.dll" target="lib\net40" />
+    <file src="bin\release\Hmac.WebAPI.dll" target="lib\net40" />
   </files>
 </package>
