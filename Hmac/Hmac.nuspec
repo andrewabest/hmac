@@ -13,6 +13,6 @@
     <copyright>Copyright © 2018, Andrew Best</copyright>
   </metadata>
   <files>
-    <file src="bin\release\Hmac.dll" target="lib\net40" />
+    <file src="bin\release\Hmac.dll" target="lib\net45" />
   </files>
 </package>
