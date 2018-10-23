@@ -33,8 +33,7 @@ namespace Hmac
             string scope, 
             string apiKey)
         {
-            var serializedValue = JsonConvert.SerializeObject(content);
-            var encodedValue = Encoding.UTF8.GetBytes(serializedValue);
+            var encodedValue = Encoding.UTF8.GetBytes(content);
             var sha256 = SHA256.Create();
             var requestContentHash = sha256.ComputeHash(encodedValue);
             var requestContentHashBase64String = Convert.ToBase64String(requestContentHash);
